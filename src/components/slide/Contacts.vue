@@ -1,12 +1,27 @@
 <template>
   <div class="container">
     <div class="left-bar fade-in-left">
-      <h4>{{$t("contacts.title")}}</h4>
-      <h6>{{$t("contacts.description")}}</h6>
-      <div class="buttons">
-        <input type="text" :placeholder="$t('contacts.email')" class="buttons-input">
-        <div class="btn-main">
-          <div class="btn-title">{{$t("contacts.subscribe")}}</div>
+      <div v-show="!send_success" >
+        <h4 v-show="!send_error">{{$t("contacts.title")}}</h4>
+        <h4 v-show="send_error">{{$t("contacts.error_title")}}</h4>
+        <h6 v-show="!send_error">{{$t("contacts.description")}}</h6>
+        <div class="buttons">
+          <input
+            v-model="email"
+            type="text" 
+            :placeholder="$t('contacts.email')" 
+            class="buttons-input"
+            :class="{'buttons-input-error': send_error}"
+          >
+          <div class="btn-main" @click="sendMail()">
+            <div class="btn-title" >{{$t("contacts.subscribe")}}</div>
+          </div>
+        </div>
+      </div>
+      <div class="success-bar" v-show="send_success">
+        <h4>{{$t("contacts.success_title")}}</h4>
+        <div class="btn-main" @click="sendMail()">
+          <div class="btn-title">{{$t("contacts.goback")}}</div>
         </div>
       </div>
     </div>
@@ -17,12 +32,28 @@
 </template>
 <script>
 export default {
-
-}
+  data() {
+    return {
+      email: null,
+      send_success: false,
+      send_error: false
+    };
+  },
+  methods: {
+    sendMail () {
+      this.send_success = this.validEmail();
+      this.send_error = !this.validEmail();
+    },
+    validEmail () {
+      var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+      return re.test(this.email);
+    }
+  }
+};
 </script>
 
 <style lang="less" scoped>
-@import url('../../styles/variables.less');
+@import url("../../styles/variables.less");
 
 .container {
   display: flex;
@@ -60,7 +91,7 @@ export default {
         border-radius: 50px;
         outline: none;
         border: none;
-        box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
         transition: box-shadow @time-description ease-in;
         margin-right: 15px;
         height: 37px;
@@ -70,13 +101,16 @@ export default {
           height: 26px;
           font-size: 12px;
         }
-       
       }
       .buttons-input:hover {
-        box-shadow: 0 2px 10px rgba(0,0,0,0.5);
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
         transition: box-shadow @time-description ease-in;
         // color: rgba(0,0,0,1);
         // transition: color 0.5s ease-in;
+      }
+      .buttons-input-error {
+        box-shadow: 0 2px 10px rgba(255, 0, 0, 0.5);
+        transition: box-shadow @time-description ease-in;
       }
       .btn-main {
         display: flex;
@@ -144,61 +178,77 @@ export default {
     color: rgba(0, 0, 0, 1);
     transition: color @time-description ease-in;
   }
+  .success-bar {
+    .btn-main {
+      font-family: TT Norms Regular;
+      background: @purple;
+      border-radius: 40px;
+      padding: 10px 20px;
+      color: white;
+      transition: background @time-description ease-in;
+      display: inline-block;
+      &:hover {
+        cursor: pointer;
+        background: rgba(61, 69, 238, 0.7);
+        transition: background @time-description ease-in;
+      }
+    }
+  }
 }
 .fade-in-left {
-  -webkit-animation: fade-in-left @time cubic-bezier(0.390, 0.575, 0.565, 1.000) both;
-	animation: fade-in-left @time cubic-bezier(0.390, 0.575, 0.565, 1.000) both;
+  -webkit-animation: fade-in-left @time cubic-bezier(0.39, 0.575, 0.565, 1) both;
+  animation: fade-in-left @time cubic-bezier(0.39, 0.575, 0.565, 1) both;
 }
 
 @-webkit-keyframes fade-in-left {
   0% {
     -webkit-transform: translateX(-50px);
-            transform: translateX(-50px);
+    transform: translateX(-50px);
     opacity: 0;
   }
   100% {
     -webkit-transform: translateX(0);
-            transform: translateX(0);
+    transform: translateX(0);
     opacity: 1;
   }
 }
 @keyframes fade-in-left {
   0% {
     -webkit-transform: translateX(-50px);
-            transform: translateX(-50px);
+    transform: translateX(-50px);
     opacity: 0;
   }
   100% {
     -webkit-transform: translateX(0);
-            transform: translateX(0);
+    transform: translateX(0);
     opacity: 1;
   }
 }
 .fade-in-fwd {
-	-webkit-animation: fade-in-fwd 1s cubic-bezier(0.390, 0.575, 0.565, 1.000) both;
-	        animation: fade-in-fwd 1s cubic-bezier(0.390, 0.575, 0.565, 1.000) both;
+  -webkit-animation: fade-in-fwd 1s cubic-bezier(0.39, 0.575, 0.565, 1) both;
+  animation: fade-in-fwd 1s cubic-bezier(0.39, 0.575, 0.565, 1) both;
 }
 @-webkit-keyframes fade-in-fwd {
   0% {
     -webkit-transform: translateZ(-80px);
-            transform: translateZ(-80px);
+    transform: translateZ(-80px);
     opacity: 0;
   }
   100% {
     -webkit-transform: translateZ(0);
-            transform: translateZ(0);
+    transform: translateZ(0);
     opacity: 1;
   }
 }
 @keyframes fade-in-fwd {
   0% {
     -webkit-transform: translateZ(-80px);
-            transform: translateZ(-80px);
+    transform: translateZ(-80px);
     opacity: 0;
   }
   100% {
     -webkit-transform: translateZ(0);
-            transform: translateZ(0);
+    transform: translateZ(0);
     opacity: 1;
   }
 }

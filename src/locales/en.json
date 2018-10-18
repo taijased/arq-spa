@@ -63,7 +63,10 @@
     "title": "Stay in touch",
     "description": "Subscribe to updates and be the first to explore adventures in augmented reality.",
     "subscribe": "Subscribe",
-    "email": "Your e-mail"
+    "email": "Your e-mail",
+    "success_title": "Thank you for being with us!",
+    "goback": "Go back to the main page",
+    "error_title": "Oops, something went wrong, repeat again"
   },
   "error404": {
     "subtitle": "Page Not Found",
