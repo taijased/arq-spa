@@ -1,8 +1,8 @@
 <template>
-    <div class="error" @click="$router.push('/')">
+    <div class="error">
         <div class="error-title">404</div>
-        <div class="error-subtitle">Страница не найдена</div>
-        <div class="btn-error">Вернуться на главную</div>
+        <div class="error-subtitle">{{$t("error404.subtitle")}}</div>
+        <div class="btn-error"  @click="$router.push('/')">{{$t("error404.btntitle")}}</div>
     </div>
 </template>
 

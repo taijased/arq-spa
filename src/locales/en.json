@@ -64,5 +64,9 @@
     "description": "Subscribe to updates and be the first to explore adventures in augmented reality.",
     "subscribe": "Subscribe",
     "email": "Your e-mail"
+  },
+  "error404": {
+    "subtitle": "Page Not Found",
+    "btntitle": "Take me out of here"
   }
 }

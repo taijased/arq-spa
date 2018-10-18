@@ -60,7 +60,7 @@ export default {
         border-radius: 50px;
         outline: none;
         border: none;
-        box-shadow: 0 0 10px rgba(0,0,0,0.2);
+        box-shadow: 0 2px 8px rgba(0,0,0,0.2);
         transition: box-shadow @time-description ease-in;
         margin-right: 15px;
         height: 37px;
@@ -73,7 +73,7 @@ export default {
        
       }
       .buttons-input:hover {
-        box-shadow: 0 0 10px rgba(0,0,0,0.5);
+        box-shadow: 0 2px 10px rgba(0,0,0,0.5);
         transition: box-shadow @time-description ease-in;
         // color: rgba(0,0,0,1);
         // transition: color 0.5s ease-in;
