@@ -1,28 +1,30 @@
 <template>
-  <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
-  </div>
+  <!-- <div id="app"> -->
+    <app-index></app-index>
+  <!-- </div> -->
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import AppIndex from "./components/Index";
 
 export default {
-  name: 'app',
   components: {
-    HelloWorld
+    AppIndex
   }
-}
+};
 </script>
 
-<style lang="less">
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+<style>
+@import url('../src/styles/font.less');
+* {
+  margin: 0;
+  padding: 0;
 }
+body {
+  height: 100%;
+  width: 100%;
+  position: relative;
+  overflow: hidden;
+}
+
 </style>
