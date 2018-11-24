@@ -38,7 +38,7 @@ export default {
         mousewheel: true,
         loop: true,
         navigation: {
-          nextEl: ".bottom-navigation"
+          nextEl: ".bottom-navigation",
         },
         pagination: {
           el: ".swiper-pagination",

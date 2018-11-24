@@ -21,7 +21,7 @@
       <div class="success-bar" v-show="send_success">
         <h4>{{$t("contacts.success_title")}}</h4>
         <div class="btn-main" @click="sendMail()">
-          <div class="btn-title">{{$t("contacts.goback")}}</div>
+          <div class="bottom-navigation btn-title">{{$t("contacts.goback")}}</div>
         </div>
       </div>
     </div>
@@ -31,10 +31,12 @@
   </div>
 </template>
 <script>
+import axios from 'axios'
 export default {
   data() {
     return {
       email: null,
+      send: false,
       send_success: false,
       send_error: false
     };
@@ -43,6 +45,14 @@ export default {
     sendMail () {
       this.send_success = this.validEmail();
       this.send_error = !this.validEmail();
+      if (!this.send && this.send_success) {
+        axios.post('http://b.arq.su/subscribe?email=' + this.email)
+          .then(response => {})
+          .catch(e => {
+            console.log(e);
+          })
+        this.send = true
+      }
     },
     validEmail () {
       var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
