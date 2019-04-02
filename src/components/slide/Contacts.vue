@@ -31,7 +31,8 @@
   </div>
 </template>
 <script>
-import axios from 'axios'
+import ARQService from '../../api/ARQService.js';
+
 export default {
   data() {
     return {
@@ -46,12 +47,18 @@ export default {
       this.send_success = this.validEmail();
       this.send_error = !this.validEmail();
       if (!this.send && this.send_success) {
-        axios.post('http://b.arq.su/subscribe?email=' + this.email)
-          .then(response => {})
-          .catch(e => {
-            console.log(e);
+        try {
+          new Promise((resolve, reject) => {
+            ARQService.subscribe(this.email)
+              .then(response => {
+                console.log(response);
+                resolve(response)
+              })
+              .catch(reject)
           })
-        this.send = true
+        } catch (error) {
+          console.log(error + " | sendMail");
+        }
       }
     },
     validEmail () {
